@@ -1,0 +1,6 @@
+title = "Dump Parser"
+gitSourceBranch = "main"
+autoSectionPath = "src"
+
+[[classOrder]]
+classes = ["Dump"]

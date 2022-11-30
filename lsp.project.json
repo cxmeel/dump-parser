@@ -1,0 +1,10 @@
+{
+  "name": "dump-parser-lsp",
+  "tree": {
+    "$className": "Folder",
+    "$path": "packages",
+    "Fetch": {
+      "$path": "default.project.json"
+    }
+  }
+}

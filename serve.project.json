@@ -1,0 +1,15 @@
+{
+  "name": "dump-parser-serve",
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "Packages": {
+        "$className": "Folder",
+        "$path": "packages",
+        "DumpParser": {
+          "$path": "default.project.json"
+        }
+      }
+    }
+  }
+}
