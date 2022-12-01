@@ -44,21 +44,21 @@ local PartClass = Dump:GetClass("Part")
 print(PartClass:GetProperties())
 
 --[[
-  Get a list of safe-to-use properties on "Part". This is
-  functionally equivalent to:
+	Get a list of safe-to-use properties on "Part". This is
+	functionally equivalent to:
 
-  ```lua
-  PartClass:GetProperties(
+	```lua
+	PartClass:GetProperties(
 		Filter.Invert(Filter.Deprecated),
 		Filter.HasSecurity("None"),
 		Filter.Scriptable,
 	)
-  ```
+	```
 
-  `GetProperties`, `GetEvents`, `GetFunctions` and `GetCallbacks`
-  all accept a variable number of filters as arguments. This
-  allows you to filter down the list of results to only what
-  you need.
+	`GetProperties`, `GetEvents`, `GetFunctions` and `GetCallbacks`
+	all accept a variable number of filters as arguments. This
+	allows you to filter down the list of results to only what
+	you need.
 --]]
 print(Dump:GetProperties("Part"))
 ~~~
