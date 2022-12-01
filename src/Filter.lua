@@ -4,6 +4,11 @@ local T = require(script.Parent["init.d"])
 type Filter<T> = T.Filter<T>
 type APIEntry = T.APIClass | T.APIMember
 
+type SecurityLevels = {
+        Read: (string | { string })?,
+        Write: (string | { string })?,
+}
+
 local function HasTags(...: string): Filter<APIEntry>
 	local tags = { ... }
 
@@ -24,8 +29,22 @@ local function HasTags(...: string): Filter<APIEntry>
 	end
 end
 
+local function HasSecurity(levels: SecurityLevels): Filter<APIEntry>
+        return function(object: APIEntry)
+                if object.Security == nil then
+                        return false
+                end
+
+                local read = typeof(levels.Read) == "string" and { levels.Read } or levels.Read
+                local write = typeof(levels.Write) == "string" and { levels.Write } or levels.Write
+
+                return table.find(read, object.Security.Read) ~= nil
+                        and table.find(write, object.Security.Write) ~= nil
+        end
+end
+
 local function Invert(filter: Filter<APIEntry>): Filter<APIEntry>
-	return function(object: T.APIMember | T.APIClass)
+	return function(object: APIEntry)
 		return not filter(object)
 	end
 end
@@ -51,15 +70,16 @@ local ThreadSafe: Filter<APIEntry> = function(object)
 end
 
 local Readable: Filter<APIEntry> = function(object)
-	return object.Security ~= nil and object.Security.Read == "None"
+	return HasSecurity({ Read = "None" })(object)
 end
 
 local Writable: Filter<APIEntry> = function(object)
-	return object.Security ~= nil and object.Security.Write == "None"
+	return HasSecurity({ Write = "None" })(object)
 end
 
 return {
 	Deprecated = Deprecated,
+        HasSecurity = HasSecurity,
 	HasTags = HasTags,
 	Invert = Invert,
 	Readable = Readable,
