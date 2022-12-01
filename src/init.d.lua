@@ -63,3 +63,5 @@ export type APIClass = {
 export type APIDump = {
 	Classes: { APIClass },
 }
+
+return {}
