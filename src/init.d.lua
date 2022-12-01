@@ -143,6 +143,14 @@ export type Class = {
 }
 
 --[=[
+	@type ClassWithInheritance Class & { Inherits: { string } }
+	@within Types
+]=]
+export type ClassWithInheritance = Class & {
+	Inherits: { string },
+}
+
+--[=[
 	@type Item Member | Class
 	@within Types
 ]=]
