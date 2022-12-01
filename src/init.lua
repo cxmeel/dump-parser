@@ -244,4 +244,20 @@ function Dump:GetProperties(class: string | Instance, ...: (string | T.GenericFi
 	return classInstance:GetProperties(Filter.Invert(Filter.Deprecated), Filter.HasSecurity("None"), ...)
 end
 
+--[=[
+  @method GetChangedProperties
+	@within Dump
+	@param instance Instance
+	@return { [string]: Property }
+
+	Gets a list of properties that have been changed from the
+	default value for the given instance.
+]=]
+function Dump:GetChangedProperties(instance: Instance)
+	local properties = self:GetProperties(instance)
+  local changedProperties = {}
+
+	return changedProperties
+end
+
 return Dump
