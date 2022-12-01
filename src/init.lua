@@ -60,7 +60,7 @@ function Dump.new(dump: T.APIDump)
 end
 
 --[=[
-	@function fetchDump
+	@function fetchRawDump
 	@within Dump
 	@param hashOrVersion string?
 	@return APIDump
@@ -69,7 +69,7 @@ end
 	Roblox API. If a hash or version is provided, it will attempt to
 	fetch the dump for that hash or version.
 ]=]
-function Dump.fetchDump(hashOrVersion: string?): T.APIDump
+function Dump.fetchRawDump(hashOrVersion: string?): T.APIDump
 	local isVersionString = hashOrVersion and hashOrVersion:match("%d+%.") ~= nil
 
 	if isVersionString then
@@ -80,7 +80,7 @@ function Dump.fetchDump(hashOrVersion: string?): T.APIDump
 end
 
 --[=[
-	@function fromServer
+	@function fetchFromServer
 	@within Dump
 	@param hashOrVersion string?
 	@return Dump
@@ -88,15 +88,15 @@ end
 	Performs the same actions as [`fetchDump`][Dump.fetchDump], but returns a
 	[Dump] instance instead of the raw API data.
 ]=]
-function Dump.fromServer(hashOrVersion: string?)
-	local apiDump = Dump.fetchDump(hashOrVersion)
+function Dump.fetchFromServer(hashOrVersion: string?)
+	local apiDump = Dump.fetchRawDump(hashOrVersion)
 	local dump = Dump.new(apiDump)
 
 	return dump
 end
 
 --[=[
-	@method findClassEntry
+	@method findRawClassEntry
 	@within Dump
 	@private
 	@param className string
@@ -106,7 +106,7 @@ end
 	class name. If the class entry cannot be found, it will throw
 	an error.
 ]=]
-function Dump:findClassEntry(className: string): T.Class
+function Dump:findRawClassEntry(className: string): T.Class
 	for _, class: T.Class in self._dump.Classes do
 		if class.Name == className then
 			return class
@@ -133,7 +133,7 @@ function Dump:constructRawClass(class: T.Class): T.Class
 	local nextAncestorClassName = finalDescendant.Superclass
 
 	while nextAncestorClassName and nextAncestorClassName ~= "<<<ROOT>>>" do
-		local ancestor = self:findClassEntry(nextAncestorClassName)
+		local ancestor = self:findRawClassEntry(nextAncestorClassName)
 
 		for _, member in ancestor.Members do
 			table.insert(memberAncestry, member)
@@ -206,8 +206,7 @@ end
 	passed, it will filter the classes based on the given arguments.
 ]=]
 function Dump:GetClasses(...: (string | Instance | T.GenericFilter<T.Class>)?)
-	local results = self:filterClasses({ ... })
-	return results
+	return self:filterClasses({ ... })
 end
 
 --[=[
@@ -239,10 +238,10 @@ end
 	Gets a list of properties for the given class. If an Instance
 	is passed, it will determine the class from `Instance.ClassName`.
 ]=]
-function Dump:GetProperties(class: string | Instance)
+function Dump:GetProperties(class: string | Instance, ...: (string | T.GenericFilter<T.Property>)?)
 	local classInstance = self:GetClass(class)
 
-	return classInstance:GetProperties()
+	return classInstance:GetProperties(Filter.Invert(Filter.Deprecated), Filter.HasSecurity("None"), ...)
 end
 
 return Dump
