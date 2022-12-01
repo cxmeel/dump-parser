@@ -58,6 +58,10 @@ local Writable: Filter<APIEntry> = function(object)
 	return object.Security ~= nil and object.Security.Write == "None"
 end
 
+local Service: Filter<APIEntry> = function(object)
+	return object.Tags ~= nil and table.find(object.Tags, "Service") ~= nil
+end
+
 return {
 	Deprecated = Deprecated,
 	HasTags = HasTags,
@@ -66,6 +70,7 @@ return {
 	ReadOnly = ReadOnly,
 	Replicated = Replicated,
 	Scriptable = Scriptable,
+	Service = Service,
 	ThreadSafe = ThreadSafe,
 	Writable = Writable,
 	Yields = Yields,
