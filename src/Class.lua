@@ -103,7 +103,7 @@ end
 ]=]
 function Class:GetProperties(...: (string | T.GenericFilter<T.Property>)?)
 	local results: { [string]: T.Property } =
-		self:filterMembers({ Filter.MemberOfType("Property"), ... })
+		self:filterMembers({ Filter.MemberType("Property"), ... })
 
 	return results
 end
@@ -119,6 +119,95 @@ end
 ]=]
 function Class:GetProperty(name: string): T.Property?
 	return self:GetProperties(name)[name]
+end
+
+--[=[
+	@method GetEvents
+	@within Class
+	@param ... (string | GenericFilter<Event>)?
+	@return { [string]: Event }
+
+	Returns a table of all events that match the given
+	filters. A filter may be a string (event name), or
+	a table of filters.
+]=]
+function Class:GetEvents(...: (string | T.GenericFilter<T.Event>)?)
+	local results: { [string]: T.Event } = self:filterMembers({ Filter.MemberType("Event"), ... })
+
+	return results
+end
+
+--[=[
+	@method GetEvent
+	@within Class
+	@param name string
+	@return Event?
+
+	Returns the event with the given name, or nil if it
+	does not exist.
+]=]
+function Class:GetEvent(name: string): T.Event?
+	return self:GetEvents(name)[name]
+end
+
+--[=[
+	@method GetFunctions
+	@within Class
+	@param ... (string | GenericFilter<Function>)?
+	@return { [string]: Function }
+
+	Returns a table of all functions that match the given
+	filters. A filter may be a string (function name), or
+	a table of filters.
+]=]
+function Class:GetFunctions(...: (string | T.GenericFilter<T.Function>)?)
+	local results: { [string]: T.Function } =
+		self:filterMembers({ Filter.MemberType("Function"), ... })
+
+	return results
+end
+
+--[=[
+	@method GetFunction
+	@within Class
+	@param name string
+	@return Function?
+
+	Returns the function with the given name, or nil if it
+	does not exist.
+]=]
+function Class:GetFunction(name: string): T.Function?
+	return self:GetFunctions(name)[name]
+end
+
+--[=[
+	@method GetCallbacks
+	@within Class
+	@param ... (string | GenericFilter<Callback>)?
+	@return { [string]: Callback }
+
+	Returns a table of all callbacks that match the given
+	filters. A filter may be a string (callback name), or
+	a table of filters.
+]=]
+function Class:GetCallbacks(...: (string | T.GenericFilter<T.Callback>)?)
+	local results: { [string]: T.Callback } =
+		self:filterMembers({ Filter.MemberType("Callback"), ... })
+
+	return results
+end
+
+--[=[
+	@method GetCallback
+	@within Class
+	@param name string
+	@return Callback?
+
+	Returns the callback with the given name, or nil if it
+	does not exist.
+]=]
+function Class:GetCallback(name: string): T.Callback?
+	return self:GetCallbacks(name)[name]
 end
 
 return Class

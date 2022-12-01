@@ -6,6 +6,7 @@
 	accessing Roblox API dump data.
 ]=]
 local T = require(script["init.d"])
+local NONE = require(script.Util.None)
 
 local FetchDump = require(script.FetchDump)
 local Array = require(script.Util.Array)
@@ -15,6 +16,8 @@ local Class = require(script.Class)
 local Dump = {}
 
 Dump.__index = Dump
+
+local INSTANCE_DEFAULTS_CACHE = {}
 
 local ERR_DUMP_INVALID = 'Invalid API dump; expected table, got "%*" (%s)'
 local ERR_DUMP_CLASSES_INVALID =
@@ -233,29 +236,85 @@ end
 	@method GetProperties
 	@within Dump
 	@param class string | Instance
+	@param ... (string | GenericFilter<Property>)?
 	@return { [string]: Property }
 
 	Gets a list of properties for the given class. If an Instance
 	is passed, it will determine the class from `Instance.ClassName`.
+	Additional arguments can be passed to filter the properties.
+
+	This differs from [`Class:GetProperties`][Class.GetProperties] in
+	that it will return a pre-filtered table of properties, where
+	properties are not deprecated and are safe to read from normal
+	scripts.
+
+	Consider adding the `Filter.Invert(Filter.ReadOnly)` filter to
+	filter out read-only properties.
 ]=]
 function Dump:GetProperties(class: string | Instance, ...: (string | T.GenericFilter<T.Property>)?)
 	local classInstance = self:GetClass(class)
 
-	return classInstance:GetProperties(Filter.Invert(Filter.Deprecated), Filter.HasSecurity("None"), ...)
+	return classInstance:GetProperties(
+		Filter.Invert(Filter.Deprecated),
+		Filter.HasSecurity("None"),
+		Filter.Scriptable,
+		...
+	)
 end
 
 --[=[
-  @method GetChangedProperties
+	@method GetChangedProperties
 	@within Dump
 	@param instance Instance
+	@param ... (string | GenericFilter<Property>)?
 	@return { [string]: Property }
 
 	Gets a list of properties that have been changed from the
 	default value for the given instance.
 ]=]
-function Dump:GetChangedProperties(instance: Instance)
-	local properties = self:GetProperties(instance)
-  local changedProperties = {}
+function Dump:GetChangedProperties(instance: Instance, ...: (string | T.GenericFilter<T.Property>)?)
+	local className = instance.ClassName
+
+	local properties = self:GetProperties(instance, ...)
+	local untestedProperties, changedProperties = {}, {}
+
+	if INSTANCE_DEFAULTS_CACHE[className] == nil then
+		INSTANCE_DEFAULTS_CACHE[className] = {}
+	end
+
+	for propertyName, property in properties do
+		local testedValue = INSTANCE_DEFAULTS_CACHE[className][propertyName]
+		local currentValue = instance[propertyName]
+
+		if testedValue == nil then
+			untestedProperties[propertyName] = property
+			continue
+		end
+
+		if testedValue == NONE then
+			testedValue = nil
+		end
+
+		if testedValue ~= currentValue then
+			changedProperties[propertyName] = property
+		end
+	end
+
+	if next(untestedProperties) ~= nil then
+		local defaultInstance = Instance.new(className)
+
+		for propertyName, property in untestedProperties do
+			local value = defaultInstance[propertyName]
+
+			if instance[propertyName] ~= value then
+				changedProperties[propertyName] = property
+			end
+
+			INSTANCE_DEFAULTS_CACHE[className][propertyName] = if value == nil then NONE else value
+		end
+
+		defaultInstance:Destroy()
+	end
 
 	return changedProperties
 end

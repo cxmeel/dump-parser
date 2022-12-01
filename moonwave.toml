@@ -3,4 +3,9 @@ gitSourceBranch = "main"
 autoSectionPath = "src"
 
 [[classOrder]]
-classes = ["Dump"]
+classes = ["Dump", "Class", "Filter"]
+
+[[classOrder]]
+section = "Internal"
+collapsed = true
+classes = ["Types", "FetchDump"]

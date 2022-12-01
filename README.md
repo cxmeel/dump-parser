@@ -1,25 +1,64 @@
 # Dump Parser
 
-A generic parser for the Roblox API dump.
+A generic parser for the Roblox API dump. Inspired by [@corecii](https://github.com/Corecii)'s
+[API Dump (Static)](https://github.com/corecii/api-dump-static) and
+[@raphtalia](https://github.com/raphtalia)'s [RobloxAPI](https://github.com/raphtalia/robloxapi)
+libraries.
 
-## Outline
+## Documentation
 
-```lua
-Dump:GetProperties(class: string | Instance): { [string]: Property }
-Dump:GetChangedProperties(instance: Instance) { [string]: Property }
+Documentation can be found at https://csqrl.github.io/dump-parser.
 
-Dump:GetClass(string | Instance): Class
-Dump:GetClasses(...string | Instance | Filter<Class>): { [string]: Class }
+## Quick Start
 
-Class:GetProperty(string): Property
-Class:GetProperties(...string | userdata | Filter<Property>): { [string]: Property }
+Dump Parser is available via [Wally](https://wally.run).
 
-Class:GetEvent(string): Event
-Class:GetEvents(...string | Filter<Event>): { [string]: Event }
+### Wally
 
-Class:GetFunction(string): Function
-Class:GetFunctions(...string | Filter<Function>): { [string]: Function }
+```toml
+# wally.toml
 
-Class:GetCallback(string): Callback
-Class:GetCallbacks(...string | Filter<Callback): { [string]: Callback }
+[dependencies]
+DumpParser = "csqrl/dump-parser@0.1.0"
 ```
+
+```bash
+$ wally install
+```
+
+### Manual Installation
+
+Download a copy of the latest release from the GitHub repo,
+and compile it using Rojo. From there, you can drop the
+binary directly into your project files or Roblox Studio.
+
+## Example Usage
+
+~~~lua
+local DumpParser = require(path.to.DumpParser)
+local Dump = DumpParser.fetchFromServer()
+
+local PartClass = Dump:GetClass("Part")
+
+-- Get a list of all properties on "Part"
+print(PartClass:GetProperties())
+
+--[[
+  Get a list of safe-to-use properties on "Part". This is
+  functionally equivalent to:
+
+  ```lua
+  PartClass:GetProperties(
+		Filter.Invert(Filter.Deprecated),
+		Filter.HasSecurity("None"),
+		Filter.Scriptable,
+	)
+  ```
+
+  `GetProperties`, `GetEvents`, `GetFunctions` and `GetCallbacks`
+  all accept a variable number of filters as arguments. This
+  allows you to filter down the list of results to only what
+  you need.
+--]]
+print(Dump:GetProperties("Part"))
+~~~

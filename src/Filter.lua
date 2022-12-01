@@ -7,8 +7,8 @@
 	as those that are deprecated or inaccessible to non-CoreScripts.
 ]=]
 local T = require(script.Parent["init.d"])
+local NONE = require(script.Parent.Util.None)
 
-local NONE = newproxy(false)
 local VALUE_TYPE_REMAP = {
 	boolean = { "bool" },
 	number = { "float", "double", "int", "int64" },
@@ -176,10 +176,10 @@ local Service: T.GenericFilter<T.Item> = function(object)
 end
 
 --[=[
-	@prop MemberOfType (memberType: string) -> GenericFilter<Item>
+	@prop MemberType (memberType: string) -> GenericFilter<Item>
 	@within Filter
 ]=]
-local function MemberOfType(memberType: string): T.GenericFilter<T.Item>
+local function MemberType(memberType: string): T.GenericFilter<T.Item>
 	return function(object: T.Item)
 		return object.MemberType == memberType
 	end
@@ -258,7 +258,7 @@ return {
 	HasSecurity = HasSecurity,
 	HasTags = HasTags,
 	Invert = Invert,
-	MemberOfType = MemberOfType,
+	MemberType = MemberType,
 	Name = Name,
 	Readable = Readable,
 	ReadOnly = ReadOnly,
