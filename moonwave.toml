@@ -1,0 +1,11 @@
+title = "Dump Parser"
+gitSourceBranch = "main"
+autoSectionPath = "src"
+
+[[classOrder]]
+classes = ["Dump", "Class", "Filter"]
+
+[[classOrder]]
+section = "Internal"
+collapsed = true
+classes = ["Types", "FetchDump"]
