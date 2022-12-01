@@ -5,8 +5,8 @@ type Filter<T> = T.Filter<T>
 type APIEntry = T.APIClass | T.APIMember
 
 type SecurityLevels = {
-        Read: (string | { string })?,
-        Write: (string | { string })?,
+	Read: (string | { string })?,
+	Write: (string | { string })?,
 }
 
 local function HasTags(...: string): Filter<APIEntry>
@@ -30,17 +30,17 @@ local function HasTags(...: string): Filter<APIEntry>
 end
 
 local function HasSecurity(levels: SecurityLevels): Filter<APIEntry>
-        return function(object: APIEntry)
-                if object.Security == nil then
-                        return false
-                end
+	return function(object: APIEntry)
+		if object.Security == nil then
+			return false
+		end
 
-                local read = typeof(levels.Read) == "string" and { levels.Read } or levels.Read
-                local write = typeof(levels.Write) == "string" and { levels.Write } or levels.Write
+		local read = typeof(levels.Read) == "string" and { levels.Read } or levels.Read
+		local write = typeof(levels.Write) == "string" and { levels.Write } or levels.Write
 
-                return table.find(read, object.Security.Read) ~= nil
-                        and table.find(write, object.Security.Write) ~= nil
-        end
+		return table.find(read, object.Security.Read) ~= nil
+			and table.find(write, object.Security.Write) ~= nil
+	end
 end
 
 local function Invert(filter: Filter<APIEntry>): Filter<APIEntry>
@@ -83,7 +83,7 @@ end
 
 return {
 	Deprecated = Deprecated,
-        HasSecurity = HasSecurity,
+	HasSecurity = HasSecurity,
 	HasTags = HasTags,
 	Invert = Invert,
 	Readable = Readable,
