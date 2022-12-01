@@ -34,10 +34,24 @@ function Class.new(classEntry: T.Class)
 	local self = setmetatable({}, Class)
 	CLASS_CACHE[classEntry.Name] = self
 
+--- @prop Name string
+--- @within Class
 	self.Name = classEntry.Name
+
+--- @prop Superclass string
+--- @within Class
 	self.Superclass = classEntry.Superclass
+
+--- @prop Members { Member }
+--- @within Class
 	self.Members = classEntry.Members
+
+--- @prop Tags { string }?
+--- @within Class
 	self.Tags = classEntry.Tags
+
+--- @prop Inherits { string }
+--- @within Class
 	self.Inherits = classEntry.Inherits
 
 	return table.freeze(self)
