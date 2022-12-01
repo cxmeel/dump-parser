@@ -102,15 +102,26 @@ end
 --[=[
 	@function fetchDump
 	@within FetchDump
-	@param hash string?
+	@param hashOrVersion string?
 	@return APIDump
 
-	Fetches the API dump for the given version hash from the Roblox
-	API. If no hash is provided, it will default to the latest
-	version hash.
+	Fetches the API dump for the current version of Roblox from the
+	Roblox API. If a hash or version is provided, it will attempt to
+	fetch the dump for that hash or version.
 ]=]
-local function FetchDump(hash: string?): T.APIDump
-	local apiDump = HttpRequest(URL_VERSION_DUMP:format(hash), true)
+local function FetchDump(hashOrVersion: string?): T.APIDump
+	local isVersionString = hashOrVersion and hashOrVersion:match("%d+%.") ~= nil
+
+	if hashOrVersion == nil then
+		hashOrVersion = RobloxVersion
+		isVersionString = true
+	end
+
+	if isVersionString then
+		hashOrVersion = FetchVersionHashWithFallback(hashOrVersion)
+	end
+
+	local apiDump = HttpRequest(URL_VERSION_DUMP:format(hashOrVersion), true)
 
 	return apiDump
 end

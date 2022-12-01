@@ -8,6 +8,14 @@
 ]=]
 local T = require(script.Parent["init.d"])
 
+local NONE = newproxy(false)
+local VALUE_TYPE_REMAP = {
+	boolean = { "bool" },
+	number = { "float", "double", "int", "int64" },
+	string = { "string" },
+	[NONE] = { "void" },
+}
+
 --[=[
 	@interface SecurityLevels
 	@within Filter
@@ -167,17 +175,98 @@ local Service: T.GenericFilter<T.Item> = function(object)
 	return object.Tags ~= nil and table.find(object.Tags, "Service") ~= nil
 end
 
+--[=[
+	@prop MemberOfType (memberType: string) -> GenericFilter<Item>
+	@within Filter
+]=]
+local function MemberOfType(memberType: string): T.GenericFilter<T.Item>
+	return function(object: T.Item)
+		return object.MemberType == memberType
+	end
+end
+
+--[=[
+	@prop Name (name: string) -> GenericFilter<Item>
+	@within Filter
+]=]
+local function Name(name: string): T.GenericFilter<T.Item>
+	return function(object: T.Item)
+		return object.Name == name
+	end
+end
+
+--[=[
+	@prop Any (...: GenericFilter<Item>) -> GenericFilter<Item>
+	@within Filter
+
+	Combines multiple filters into a single filter. The returned filter
+	will return `true` if *any* of the given filters return `true`.
+]=]
+local function Any(...: T.GenericFilter<T.Item>): T.GenericFilter<T.Item>
+	if select("#", ...) == 0 then
+		warn("Filter.Any was called with no filters")
+
+		return function(_: T.Item): true
+			return true
+		end
+	end
+
+	local filters = { ... }
+
+	return function(object: T.Item)
+		for _, filter in filters do
+			if filter(object) then
+				return true
+			end
+		end
+
+		return false
+	end
+end
+
+--[=[
+	@prop ValueType (type: string) -> GenericFilter<Item>
+	@within Filter
+]=]
+local function ValueType(type: string | nil): T.GenericFilter<T.Item>
+	return function(object: T.Item)
+		local valueType = object.ValueType
+
+		if not valueType then
+			return false
+		end
+
+		if valueType.Category == "Primitive" then
+			local primitiveRemap = if type == nil
+				then VALUE_TYPE_REMAP[NONE]
+				else VALUE_TYPE_REMAP[type]
+
+			if not primitiveRemap then
+				return valueType.Name == type
+			end
+
+			return table.find(primitiveRemap, valueType.Name) ~= nil
+		end
+
+		return valueType.Name == type
+	end
+end
+
 return {
+	Any = Any,
 	Deprecated = Deprecated,
 	HasSecurity = HasSecurity,
 	HasTags = HasTags,
 	Invert = Invert,
+	MemberOfType = MemberOfType,
+	Name = Name,
 	Readable = Readable,
 	ReadOnly = ReadOnly,
 	Replicated = Replicated,
 	Scriptable = Scriptable,
 	Service = Service,
 	ThreadSafe = ThreadSafe,
+	ValueType = ValueType,
 	Writable = Writable,
 	Yields = Yields,
 }
