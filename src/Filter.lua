@@ -28,8 +28,10 @@ type SecurityLevels = {
 }
 
 --[=[
-	@prop HasTags (...: string) -> GenericFilter<Item>
+	@function HasTags
 	@within Filter
+	@param ... string
+	@return GenericFilter<Item>
 
 	Checks if the given [Item] has any of the given tags. If multiple
 	tags are given, then the [Item] must have all of the tags in order
@@ -56,8 +58,10 @@ local function HasTags(...: string): T.GenericFilter<T.Item>
 end
 
 --[=[
-	@prop HasSecurity (levels: SecurityLevels | string) -> GenericFilter<Item>
+	@function HasSecurity
 	@within Filter
+	@param levels SecurityLevels | string
+	@return GenericFilter<Item>
 
 	Accepts a [SecurityLevels] object or a string. If a string is passed,
 	both Read and Write will be set to that string. [SecurityLevels] can
@@ -91,8 +95,10 @@ local function HasSecurity(levels: SecurityLevels | string): T.GenericFilter<T.I
 end
 
 --[=[
-	@prop Invert (filter: GenericFilter<Item>) -> GenericFilter<Item>
+	@function Invert
 	@within Filter
+	@param filter GenericFilter<Item>
+	@return GenericFilter<Item>
 
 	Inverts the given filter. If the filter returns `true`, then this
 	filter will return `false`, and vice versa. For example:
@@ -176,8 +182,13 @@ local Service: T.GenericFilter<T.Item> = function(object)
 end
 
 --[=[
-	@prop MemberType (memberType: string) -> GenericFilter<Item>
+	@function MemberType
 	@within Filter
+	@param memberType string
+	@return GenericFilter<Item>
+
+	Checks if the given [Item] is of the given member type; for example,
+	when trying to access only members which are of type `"Property"`.
 ]=]
 local function MemberType(memberType: string): T.GenericFilter<T.Item>
 	return function(object: T.Item)
@@ -186,8 +197,12 @@ local function MemberType(memberType: string): T.GenericFilter<T.Item>
 end
 
 --[=[
-	@prop Name (name: string) -> GenericFilter<Item>
+	@function Name
 	@within Filter
+	@param name string
+	@return GenericFilter<Item>
+
+	Checks if the given [Item]'s name matches the given string.
 ]=]
 local function Name(name: string): T.GenericFilter<T.Item>
 	return function(object: T.Item)
@@ -196,11 +211,15 @@ local function Name(name: string): T.GenericFilter<T.Item>
 end
 
 --[=[
-	@prop Any (...: GenericFilter<Item>) -> GenericFilter<Item>
+	@function Any
 	@within Filter
+	@param ... GenericFilter<Item>
+	@return GenericFilter<Item>
 
 	Combines multiple filters into a single filter. The returned filter
-	will return `true` if *any* of the given filters return `true`.
+	will return `true` if *any* of the given filters return `true`. If
+	no filters are given, then the returned filter will always return
+	`true`, but will print a warning to the output.
 ]=]
 local function Any(...: T.GenericFilter<T.Item>): T.GenericFilter<T.Item>
 	if select("#", ...) == 0 then
@@ -225,8 +244,15 @@ local function Any(...: T.GenericFilter<T.Item>): T.GenericFilter<T.Item>
 end
 
 --[=[
-	@prop ValueType (type: string) -> GenericFilter<Item>
+	@function ValueType
 	@within Filter
+	@param type string | nil
+	@return GenericFilter<Item>
+
+	Returns `true` for any [Item] whose `ValueType` field is of the given type.
+	Primitive Luau types, such as `string` or `number` can be used; they will
+	automatically be mapped to the corresponding `ValueType` string (e.g.
+	`number` can refer to `float`, `double`, `int`, etc.).
 ]=]
 local function ValueType(type: string | nil): T.GenericFilter<T.Item>
 	return function(object: T.Item)
