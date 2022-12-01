@@ -1,7 +1,31 @@
 --!strict
-export type Filter<T> = (object: T) -> any?
+--[=[
+	@class Types
+]=]
 
-export type APIProperty = {
+--[=[
+	@type GenericFilter <T>(object: T) -> any?
+	@within Types
+
+	A generic filter function that takes an object of type T and
+	returns a boolean value indicating whether or not the object
+	should be included in the result.
+]=]
+export type GenericFilter<T> = (object: T) -> any?
+
+--[=[
+	@interface Property
+	@within Types
+	.MemberType "Property"
+	.Category string
+	.Name string
+	.Security { Read: string, Write: string }
+	.Serialization { CanLoad: boolean, CanSave: boolean }
+	.Tags { string }?
+	.ThreadSafety string
+	.ValueType { Category: string, Name: string }
+]=]
+export type Property = {
 	MemberType: "Property",
 	Category: string,
 	Name: string,
@@ -21,7 +45,18 @@ export type APIProperty = {
 	},
 }
 
-export type APIFunction = {
+--[=[
+	@interface Function
+	@within Types
+	.MemberType "Function"
+	.Name string
+	.Parameters {{ Name: string, Type: string, Default: string? }}
+	.ReturnType { Category: string, Name: string }
+	.Security string
+	.Tags { string }?
+	.ThreadSafety string
+]=]
+export type Function = {
 	MemberType: "Function",
 	Name: string,
 	Parameters: { { Name: string, Type: string, Default: string? } },
@@ -31,7 +66,17 @@ export type APIFunction = {
 	ThreadSafety: string,
 }
 
-export type APIEvent = {
+--[=[
+	@interface Event
+	@within Types
+	.MemberType "Event"
+	.Name string
+	.Parameters {{ Name: string, Type: string }}
+	.Security string
+	.Tags { string }?
+	.ThreadSafety string
+]=]
+export type Event = {
 	MemberType: "Event",
 	Name: string,
 	Parameters: { { Name: string, Type: string } },
@@ -40,7 +85,18 @@ export type APIEvent = {
 	ThreadSafety: string,
 }
 
-export type APICallback = {
+--[=[
+	@interface Callback
+	@within Types
+	.MemberType "Callback"
+	.Name string
+	.Parameters {{ Name: string, Type: string }}
+	.ReturnType { Category: string, Name: string }
+	.Security string
+	.Tags { string }?
+	.ThreadSafety string
+]=]
+export type Callback = {
 	MemberType: "Callback",
 	Name: string,
 	Parameters: { { Name: string, Type: string } },
@@ -50,18 +106,46 @@ export type APICallback = {
 	ThreadSafety: string,
 }
 
-export type APIMember = APIProperty | APIFunction | APIEvent | APICallback
+--[=[
+	@type APIDump { Classes: { [any]: any }, [string]: any }
+	@within Types
 
-export type APIClass = {
-	Members: { APIMember },
+	An API dump is a table that contains the raw Roblox API dump
+	data. As a minimum, the Dump expects an APIDump to contain
+	a `Classes` array.
+]=]
+export type APIDump = {
+	Classes: { [any]: any },
+	[string]: any,
+}
+
+--[=[
+	@type Member Property | Function | Event | Callback
+	@within Types
+]=]
+export type Member = Property | Function | Event | Callback
+
+--[=[
+	@interface Class
+	@within Types
+	.Members { Member }
+	.MemoryCategory string
+	.Name string
+	.Superclass string
+	.Tags { string }?
+]=]
+export type Class = {
+	Members: { Member },
 	MemoryCategory: string,
 	Name: string,
 	Superclass: string,
 	Tags: { string }?,
 }
 
-export type APIDump = {
-	Classes: { APIClass },
-}
+--[=[
+	@type Item Member | Class
+	@within Types
+]=]
+export type Item = Member | Class
 
 return {}
