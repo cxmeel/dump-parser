@@ -1,4 +1,12 @@
 --!strict
+--[=[
+	@class FetchDump
+	@private
+
+	An internal module that handles fetching the Roblox API dump
+	from the Roblox API. It is accessed by the [`fetchDump`][Dump.fetchDump]
+	function on the [`Dump`][Dump] class.
+]=]
 local HttpService = game:GetService("HttpService")
 
 local T = require(script.Parent["init.d"])
@@ -22,6 +30,13 @@ local function HttpRequest<T>(url: string, json: boolean?): T
 	return response.Body
 end
 
+--[=[
+	@function fetchLatestVersionHash
+	@within FetchDump
+	@return string
+
+	Fetches the latest Roblox version hash from the Roblox API.
+]=]
 local function FetchLatestVersionHash(): string
 	local versionHash: string = HttpRequest(URL_CURRENT_VERSION)
 	local hash = versionHash:match("version%-(%x+)")
@@ -29,6 +44,16 @@ local function FetchLatestVersionHash(): string
 	return hash
 end
 
+--[=[
+	@function fetchVersionHash
+	@within FetchDump
+	@param version string?
+	@return string
+
+	Fetches the Roblox version hash for the given version from the
+	Roblox API. If no version is provided, it will default to the
+	current version.
+]=]
 local function FetchVersionHash(version: string?): string
 	version = version or RobloxVersion
 
@@ -52,7 +77,19 @@ local function FetchVersionHash(version: string?): string
 	return versionHash
 end
 
-local function FetchVersionHashWithFallback(version: string): string
+--[=[
+	@function fetchVersionHashWithFallback
+	@within FetchDump
+	@param version string?
+	@return string
+
+	Fetches the Roblox version hash for the given version from the
+	Roblox API. If no version is provided, it will default to the
+	current version. If the version hash cannot be found within the
+	deployment history, it will fallback to the latest version hash
+	on the server.
+]=]
+local function FetchVersionHashWithFallback(version: string?): string
 	local ok, versionHash = pcall(FetchVersionHash, version)
 
 	if not ok then
@@ -62,6 +99,16 @@ local function FetchVersionHashWithFallback(version: string): string
 	return versionHash
 end
 
+--[=[
+	@function fetchDump
+	@within FetchDump
+	@param hash string?
+	@return APIDump
+
+	Fetches the API dump for the given version hash from the Roblox
+	API. If no hash is provided, it will default to the latest
+	version hash.
+]=]
 local function FetchDump(hash: string?): T.APIDump
 	local apiDump = HttpRequest(URL_VERSION_DUMP:format(hash), true)
 
