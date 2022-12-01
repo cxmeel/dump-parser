@@ -124,16 +124,17 @@ end
 	@within Dump
 	@private
 	@param class Class
-	@return Class
+	@return ClassWithInheritance
 
 	An internal method that constructs a table of raw class data from
 	the given class object, merging in all the class ancestors' members.
 ]=]
-function Dump:constructRawClass(class: T.Class): T.Class
+function Dump:constructRawClass(class: T.Class): T.ClassWithInheritance
 	local finalDescendant = class
 
 	local memberAncestry = finalDescendant.Members
 	local nextAncestorClassName = finalDescendant.Superclass
+	local ancestorNames = {}
 
 	while nextAncestorClassName and nextAncestorClassName ~= "<<<ROOT>>>" do
 		local ancestor = self:findRawClassEntry(nextAncestorClassName)
@@ -142,6 +143,7 @@ function Dump:constructRawClass(class: T.Class): T.Class
 			table.insert(memberAncestry, member)
 		end
 
+		table.insert(ancestorNames, ancestor.Name)
 		nextAncestorClassName = ancestor.Superclass
 	end
 
@@ -152,6 +154,7 @@ function Dump:constructRawClass(class: T.Class): T.Class
 	constructed.Name = finalDescendant.Name
 	constructed.Superclass = finalDescendant.Superclass
 	constructed.Tags = finalDescendant.Tags
+	constructed.Inherits = ancestorNames
 
 	return constructed
 end
