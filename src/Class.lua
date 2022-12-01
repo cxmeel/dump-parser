@@ -39,7 +39,7 @@ function Class.new(classEntry: T.Class)
 	self.Members = classEntry.Members
 	self.Tags = classEntry.Tags
 
-	return self
+	return table.freeze(self)
 end
 
 --[=[
