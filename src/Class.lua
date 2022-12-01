@@ -38,6 +38,7 @@ function Class.new(classEntry: T.Class)
 	self.Superclass = classEntry.Superclass
 	self.Members = classEntry.Members
 	self.Tags = classEntry.Tags
+	self.Inherits = classEntry.Inherits
 
 	return table.freeze(self)
 end
