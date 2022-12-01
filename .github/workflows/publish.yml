@@ -20,29 +20,16 @@ jobs:
       - name: Setup Aftman
         uses: ok-nick/setup-aftman@v0.3.0
 
-#      - name: Setup Node LTS
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: lts/*
-
       - name: Report Tool Versions
         run: |
           aftman -V
           aftman list
-#          node -v
-#          npm -v
 
       - name: Install Dependencies
-        run: |
-#          npm install
-          wally install
+        run: wally install
 
       - name: Remove Tests
-        run: |
-          find . -name "*.spec.lua" -delete
-
-      # - name: Publish to Roblox
-      #   run: rojo upload default.project.json --asset_id "${{ secrets.ASSET_ID }}" --cookie "${{ secrets.ROBLOSECURITY }}"
+        run: find . -name "*.spec.lua" -delete
 
       - name: Publish to Wally
         env:
@@ -51,8 +38,3 @@ jobs:
           mkdir -p ~/.wally
           printf "[tokens]\n\"https://api.wally.run/\" = \"%s\"" "$WALLY_TOKEN" >> ~/.wally/auth.toml
           wally publish
-
-#      - name: Publish to NPM
-#        uses: JS-DevTools/npm-publish@v1
-#        with:
-#          token: ${{ secrets.NPM_TOKEN }}
