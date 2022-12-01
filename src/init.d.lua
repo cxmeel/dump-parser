@@ -1,48 +1,65 @@
 --!strict
-export type Dictionary<K, V> = { [K]: V }
-export type Array<T> = Dictionary<number, T>
+export type Filter<T> = (object: T) -> any?
 
-export type Primitive = string | number | boolean
+export type APIProperty = {
+	MemberType: "Property",
+	Category: string,
+	Name: string,
+	Security: {
+		Read: string,
+		Write: string,
+	},
+	Serialization: {
+		CanLoad: boolean,
+		CanSave: boolean,
+	},
+	Tags: { string }?,
+	ThreadSafety: string,
+	ValueType: {
+		Category: string,
+		Name: string,
+	},
+}
 
-export type Security =
-	"None"
-	| "LocalUserSecurity"
-	| "PluginSecurity"
-	| "RobloxScriptSecurity"
-	| "RobloxSecurity"
-	| "NotAccessibleSecurity"
+export type APIFunction = {
+	MemberType: "Function",
+	Name: string,
+	Parameters: { { Name: string, Type: string, Default: string? } },
+	ReturnType: { Category: string, Name: string },
+	Security: string,
+	Tags: { string }?,
+	ThreadSafety: string,
+}
 
-export type ThreadSafety = "ReadSafe" | "Unsafe" | "Safe"
+export type APIEvent = {
+	MemberType: "Event",
+	Name: string,
+	Parameters: { { Name: string, Type: string } },
+	Security: string,
+	Tags: { string }?,
+	ThreadSafety: string,
+}
 
-export type Tags =
-	"NotCreatable"
-	| "NotBrowsable"
-	| "ReadOnly"
-	| "NotReplicated"
-	| "Hidden"
-	| "Deprecated"
-	| "CustomLuaState"
-	| "CanYield"
-	| "NotScriptable"
-	| "Service"
-	| "Yields"
-	| "PlayerReplicated"
-	| "Settings"
-	| "NoYield"
-	| "UserSettings"
+export type APICallback = {
+	MemberType: "Callback",
+	Name: string,
+	Parameters: { { Name: string, Type: string } },
+	ReturnType: { Category: string, Name: string },
+	Security: string,
+	Tags: { string }?,
+	ThreadSafety: string,
+}
 
-export type APIMember = Dictionary<string, any>
+export type APIMember = APIProperty | APIFunction | APIEvent | APICallback
 
 export type APIClass = {
-	Members: Array<APIMember>,
+	Members: { APIMember },
 	MemoryCategory: string,
 	Name: string,
 	Superclass: string,
-	Tags: Array<Tags>?,
+	Tags: { string }?,
 }
 
-export type APIDump = Dictionary<string, any> & {
-	Classes: Array<APIClass>,
+export type APIDump = {
+	Classes: { APIClass },
 }
-
-return {}

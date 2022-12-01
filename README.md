@@ -2,34 +2,44 @@
 
 A generic parser for the Roblox API dump.
 
-## Usage
+## Outline
 
 ```lua
-local DumpParser = require(path.to.DumpParser)
+type APIDump = { [string]: any }
+type Filter<T> = (object: T) -> any
 
--- We don't care how/where you obtain the API dump
-local APIDump = { ... }
+type Class = {}
+type Property = {}
+type Function = {}
+type Callback = {}
+type Member = Class | Property | Function | Callback
 
--- Pass the API dump into a new DumpParser instance
-local Dump = DumpParser.new(APIDump)
+Dump.new(dump: APIDump)
+Dump.fetchDump(hash: string?): APIDump
 
--- Access information about Instances using the Dump
-local basePart = Dump("BasePart") -- Alternatively, pass an Instance: `Dump(workspace.Baseplate)`
+Dump.Filter: {
+  NonDeprecated: (object: Member) -> boolean,
+  NonHidden: (object: Member) -> boolean,
+  Scriptable: (object: Member) -> boolean,
+  Service: (object: Member) -> boolean,
+  ...
+}
 
--- Access a list of all property names for BasePart
-print(basePart.Properties) -- { string }
+Dump:GetProperties(class: string | Instance): Property
+Dump:GetChangedProperties(instance: Instance) { Property }
 
--- Access metadata about a specific property
-print(basePart.Properties.Anchored) -- { [string]: any }
+Dump:GetClass(string | Instance): Class
+Dump:GetClasses(...string | Instance | ClassFilter): { [string]: Class }
 
--- Filter properties
-local filtered = basePart.Properties(function(property)
- return property.Name:sub(1, 1) == "A" -- Return only properties beginning with "A"
-end)
+Class:GetProperty(string): Property
+Class:GetProperties(...string | userdata | Filter<Property>): { [string]: Property }
 
--- Fetch a list of safe-to-use property names for a class
-print(Dump:GetSafeProperties("BasePart"))
+Class:GetEvent(string): Event
+Class:GetEvents(...string | Filter<Event>): { [string]: Event }
 
--- Fetch a list of changed (safe) property names for an Instance
-print(Dump:GetChangedProperties(workspace.Baseplate))
+Class:GetFunction(string): Function
+Class:GetFunctions(...string | Filter<Function>): { [string]: Function }
+
+Class:GetCallback(string): Callback
+Class:GetCallbacks(...string | Filter<Callback): { [string]: Callback }
 ```
