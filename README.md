@@ -51,7 +51,7 @@ print(PartClass:GetProperties())
 	PartClass:GetProperties(
 		Filter.Invert(Filter.Deprecated), -- Include non-deprecated
 		Filter.HasSecurity("None"), -- Include properties with no read/write security
-		Filter.Scriptable, -- Include properties that can be set in scripts
+		Filter.Scriptable -- Include properties that can be set in scripts
 	)
 	```
 
