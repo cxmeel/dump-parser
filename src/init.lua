@@ -77,7 +77,7 @@ end
 	@param hashOrVersion string?
 	@return APIDump
 
-	Fetches the API dump for the current version of Roblox from the
+	Fetches the raw API dump for the current version of Roblox from the
 	Roblox API. If a hash or version is provided, it will attempt to
 	fetch the dump for that hash or version.
 ]=]
@@ -97,8 +97,8 @@ end
 	@param hashOrVersion string?
 	@return Dump
 
-	Performs the same actions as [`fetchDump`][Dump.fetchDump], but returns a
-	[Dump] instance instead of the raw API data.
+	Performs the same actions as [`fetchRawDump`][Dump.fetchRawDump], but
+	returns a [Dump] instance instead of the raw API data.
 ]=]
 function Dump.fetchFromServer(hashOrVersion: string?)
 	local apiDump = Dump.fetchRawDump(hashOrVersion)
