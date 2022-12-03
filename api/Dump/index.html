@@ -7,8 +7,8 @@
 <title data-rh="true">Dump | Dump Parser</title><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://csqrl.github.io/dump-parser/api/Dump"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Dump | Dump Parser"><meta data-rh="true" name="description" content="An easy to use and functional interface for processing and
 accessing Roblox API dump data."><meta data-rh="true" property="og:description" content="An easy to use and functional interface for processing and
 accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="https://csqrl.github.io/dump-parser/api/Dump"><link data-rh="true" rel="alternate" href="https://csqrl.github.io/dump-parser/api/Dump" hreflang="en"><link data-rh="true" rel="alternate" href="https://csqrl.github.io/dump-parser/api/Dump" hreflang="x-default"><link rel="stylesheet" href="/dump-parser/assets/css/styles.ce453ceb.css">
-<link rel="preload" href="/dump-parser/assets/js/runtime~main.86efb819.js" as="script">
-<link rel="preload" href="/dump-parser/assets/js/main.f1170fa1.js" as="script">
+<link rel="preload" href="/dump-parser/assets/js/runtime~main.8bd63ca9.js" as="script">
+<link rel="preload" href="/dump-parser/assets/js/main.e744d619.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
@@ -24,35 +24,40 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
   such as those that are deprecated or inaccessible to
   non-CoreScripts.
 </p>
-</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a class="hash-link" href="#functions" title="Direct link to heading">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a class="hash-link" href="#new" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L49"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><code>dump<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#APIDump">APIDump</a></code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Dump">Dump</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Types"><code style="text-decoration:none">Types</code><a class="hash-link" href="#Types" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L46"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.<!-- -->Types<!-- -->:<!-- --> </code> <code class="purple_ieR2">{</code><code class="purple_ieR2">}</code></div><div>
+<p>
+  A reference to the <code>Types</code> module, which contains various
+  types used within the API dump parser.
+</p>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a class="hash-link" href="#functions" title="Direct link to heading">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a class="hash-link" href="#new" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L58"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><code>dump<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#APIDump">APIDump</a></code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Dump">Dump</a></code></div><div>
 <p>
   Creates a new Dump instance from the given API dump. We don't
   necessarily care where the dump came from, as long as it's
   properly formatted.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fetchRawDump"><code style="text-decoration:none">fetchRawDump</code><a class="hash-link" href="#fetchRawDump" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L75"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">fetchRawDump</code><code>(</code><code>hashOrVersion<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#APIDump">APIDump</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fetchRawDump"><code style="text-decoration:none">fetchRawDump</code><a class="hash-link" href="#fetchRawDump" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L84"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">fetchRawDump</code><code>(</code><code>hashOrVersion<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#APIDump">APIDump</a></code></div><div>
 <p>
-  Fetches the API dump for the current version of Roblox from the
+  Fetches the raw API dump for the current version of Roblox from the
   Roblox API. If a hash or version is provided, it will attempt to
   fetch the dump for that hash or version.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fetchFromServer"><code style="text-decoration:none">fetchFromServer</code><a class="hash-link" href="#fetchFromServer" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L94"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">fetchFromServer</code><code>(</code><code>hashOrVersion<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Dump">Dump</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fetchFromServer"><code style="text-decoration:none">fetchFromServer</code><a class="hash-link" href="#fetchFromServer" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L103"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->.</code><code class="green_DgR4">fetchFromServer</code><code>(</code><code>hashOrVersion<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Dump">Dump</a></code></div><div>
 <p>
-  Performs the same actions as <a href="/dump-parser/api/Dump#fetchDump"><code>fetchDump</code></a>, but returns a
-  <a href="/dump-parser/api/Dump">Dump</a> instance instead of the raw API data.
+  Performs the same actions as <a href="/dump-parser/api/Dump#fetchRawDump"><code>fetchRawDump</code></a>, but
+  returns a <a href="/dump-parser/api/Dump">Dump</a> instance instead of the raw API data.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetClasses"><code style="text-decoration:none">GetClasses</code><a class="hash-link" href="#GetClasses" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L214"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetClasses</code><code>(</code><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code><code class="purple_ieR2">}</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetClasses"><code style="text-decoration:none">GetClasses</code><a class="hash-link" href="#GetClasses" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L223"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetClasses</code><code>(</code><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code><code class="purple_ieR2">}</code></div><div>
 <p>
   Gets all the classes from the API dump. If any arguments are
   passed, it will filter the classes based on the given arguments.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetClass"><code style="text-decoration:none">GetClass</code><a class="hash-link" href="#GetClass" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L228"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetClass</code><code>(</code><code>class<!-- -->: </code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetClass"><code style="text-decoration:none">GetClass</code><a class="hash-link" href="#GetClass" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L237"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetClass</code><code>(</code><code>class<!-- -->: </code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Class">Class</a></code></div><div>
 <p>
   Gets the class with the given name from the API dump. If the
   class is not found, it will throw an error. If an instance is
   passed, it will determine the class name from <code>Instance.ClassName</code>.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetProperties"><code style="text-decoration:none">GetProperties</code><a class="hash-link" href="#GetProperties" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L257"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetProperties</code><code>(</code><div class="inset_uKQm"><div><code>class<!-- -->: </code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code></div></div><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="purple_ieR2">}</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetProperties"><code style="text-decoration:none">GetProperties</code><a class="hash-link" href="#GetProperties" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L266"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetProperties</code><code>(</code><div class="inset_uKQm"><div><code>class<!-- -->: </code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code></div></div><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="purple_ieR2">}</code></div><div>
 <p>
   Gets a list of properties for the given class. If an Instance
   is passed, it will determine the class from <code>Instance.ClassName</code>.
@@ -68,7 +73,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
   Consider adding the <code>Filter.Invert(Filter.ReadOnly)</code> filter to
   filter out read-only properties.
 </p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetChangedProperties"><code style="text-decoration:none">GetChangedProperties</code><a class="hash-link" href="#GetChangedProperties" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L278"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetChangedProperties</code><code>(</code><div class="inset_uKQm"><div><code>instance<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code></div></div><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="purple_ieR2">}</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetChangedProperties"><code style="text-decoration:none">GetChangedProperties</code><a class="hash-link" href="#GetChangedProperties" title="Direct link to heading">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/csqrl/dump-parser/blob/main/src/init.lua#L287"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Dump<!-- -->:</code><code class="green_DgR4">GetChangedProperties</code><code>(</code><div class="inset_uKQm"><div><code>instance<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/datatype/Instance" target="_blank" rel="noopener noreferrer">Instance<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>...<!-- -->: </code><code class="purple_ieR2">(</code><code class="blue_P4bS">string</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#GenericFilter">GenericFilter</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="blue_P4bS">?</code></div></div><code>) → </code><code class="purple_ieR2">{</code><span><code>[</code><code class="blue_P4bS">string</code><code>]</code></span><code>: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/dump-parser/api/Types#Property">Property</a></code><code class="purple_ieR2">}</code></div><div>
 <p>
   Gets a list of properties that have been changed from the
   default value for the given instance.
@@ -93,13 +98,13 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 49,
+                &quot;line&quot;: 58,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
         {
             &quot;name&quot;: &quot;fetchRawDump&quot;,
-            &quot;desc&quot;: &quot;Fetches the API dump for the current version of Roblox from the\nRoblox API. If a hash or version is provided, it will attempt to\nfetch the dump for that hash or version.&quot;,
+            &quot;desc&quot;: &quot;Fetches the raw API dump for the current version of Roblox from the\nRoblox API. If a hash or version is provided, it will attempt to\nfetch the dump for that hash or version.&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;hashOrVersion&quot;,
@@ -115,13 +120,13 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 75,
+                &quot;line&quot;: 84,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
         {
             &quot;name&quot;: &quot;fetchFromServer&quot;,
-            &quot;desc&quot;: &quot;Performs the same actions as [`fetchDump`][Dump.fetchDump], but returns a\n[Dump] instance instead of the raw API data.&quot;,
+            &quot;desc&quot;: &quot;Performs the same actions as [`fetchRawDump`][Dump.fetchRawDump], but\nreturns a [Dump] instance instead of the raw API data.&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;hashOrVersion&quot;,
@@ -137,7 +142,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 94,
+                &quot;line&quot;: 103,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -160,7 +165,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;private&quot;: true,
             &quot;source&quot;: {
-                &quot;line&quot;: 112,
+                &quot;line&quot;: 121,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -183,7 +188,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;private&quot;: true,
             &quot;source&quot;: {
-                &quot;line&quot;: 132,
+                &quot;line&quot;: 141,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -206,7 +211,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;private&quot;: true,
             &quot;source&quot;: {
-                &quot;line&quot;: 173,
+                &quot;line&quot;: 182,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -228,7 +233,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 214,
+                &quot;line&quot;: 223,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -250,7 +255,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 228,
+                &quot;line&quot;: 237,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -277,7 +282,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 257,
+                &quot;line&quot;: 266,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         },
@@ -304,7 +309,7 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 278,
+                &quot;line&quot;: 287,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
         }
@@ -318,6 +323,15 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
                 &quot;line&quot;: 37,
                 &quot;path&quot;: &quot;src/init.lua&quot;
             }
+        },
+        {
+            &quot;name&quot;: &quot;Types&quot;,
+            &quot;desc&quot;: &quot;A reference to the `Types` module, which contains various\ntypes used within the API dump parser.&quot;,
+            &quot;lua_type&quot;: &quot;{}&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 46,
+                &quot;path&quot;: &quot;src/init.lua&quot;
+            }
         }
     ],
     &quot;types&quot;: [],
@@ -327,8 +341,8 @@ accessing Roblox API dump data."><link data-rh="true" rel="canonical" href="http
         &quot;line&quot;: 8,
         &quot;path&quot;: &quot;src/init.lua&quot;
     }
-}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#Filter" class="table-of-contents__link toc-highlight">Filter</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#GetChangedProperties" class="table-of-contents__link toc-highlight">:GetChangedProperties</a></li><li><a href="#GetClass" class="table-of-contents__link toc-highlight">:GetClass</a></li><li><a href="#GetClasses" class="table-of-contents__link toc-highlight">:GetClasses</a></li><li><a href="#GetProperties" class="table-of-contents__link toc-highlight">:GetProperties</a></li><li><a href="#fetchFromServer" class="table-of-contents__link toc-highlight">.fetchFromServer</a></li><li><a href="#fetchRawDump" class="table-of-contents__link toc-highlight">.fetchRawDump</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 csqrl. Built with Moonwave and Docusaurus.</div></div></div></footer></div>
-<script src="/dump-parser/assets/js/runtime~main.86efb819.js"></script>
-<script src="/dump-parser/assets/js/main.f1170fa1.js"></script>
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#Filter" class="table-of-contents__link toc-highlight">Filter</a></li><li><a href="#Types" class="table-of-contents__link toc-highlight">Types</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#GetChangedProperties" class="table-of-contents__link toc-highlight">:GetChangedProperties</a></li><li><a href="#GetClass" class="table-of-contents__link toc-highlight">:GetClass</a></li><li><a href="#GetClasses" class="table-of-contents__link toc-highlight">:GetClasses</a></li><li><a href="#GetProperties" class="table-of-contents__link toc-highlight">:GetProperties</a></li><li><a href="#fetchFromServer" class="table-of-contents__link toc-highlight">.fetchFromServer</a></li><li><a href="#fetchRawDump" class="table-of-contents__link toc-highlight">.fetchRawDump</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2022 csqrl. Built with Moonwave and Docusaurus.</div></div></div></footer></div>
+<script src="/dump-parser/assets/js/runtime~main.8bd63ca9.js"></script>
+<script src="/dump-parser/assets/js/main.e744d619.js"></script>
 </body>
 </html>
