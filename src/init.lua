@@ -37,6 +37,15 @@ local ERR_UNKNOWN_CLASSNAME = "Could not find class in dump with name %q"
 Dump.Filter = table.freeze(Filter)
 
 --[=[
+	@prop Types {}
+	@within Dump
+
+	A reference to the `Types` module, which contains various
+	types used within the API dump parser.
+]=]
+Dump.Types = T
+
+--[=[
 	@function new
 	@within Dump
 	@param dump APIDump
