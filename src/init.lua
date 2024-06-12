@@ -5,13 +5,13 @@
 	An easy to use and functional interface for processing and
 	accessing Roblox API dump data.
 ]=]
-local T = require(script["init.d"])
 local NONE = require(script.Util.None)
+local T = require(script["init.d"])
 
-local FetchDump = require(script.FetchDump)
 local Array = require(script.Util.Array)
-local Filter = require(script.Filter)
 local Class = require(script.Class)
+local FetchDump = require(script.FetchDump)
+local Filter = require(script.Filter)
 
 local Dump = {}
 
@@ -141,7 +141,7 @@ end
 function Dump:constructRawClass(class: T.Class): T.ClassWithInheritance
 	local finalDescendant = class
 
-	local memberAncestry = finalDescendant.Members
+	local memberAncestry = table.clone(finalDescendant.Members)
 	local nextAncestorClassName = finalDescendant.Superclass
 	local ancestorNames = {}
 
