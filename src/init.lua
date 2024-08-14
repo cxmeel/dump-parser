@@ -25,6 +25,17 @@ local ERR_DUMP_CLASSES_INVALID =
 local ERR_CLASS_ARG_INVALID = 'Invalid argument "class"; expected string, got "%*" (%s)'
 local ERR_UNKNOWN_CLASSNAME = "Could not find class in dump with name %q"
 
+export type GenericFilter<T> = T.GenericFilter<T>
+export type Property = T.Property
+export type Function = T.Function
+export type Event = T.Event
+export type Callback = T.Callback
+export type APIDump = T.APIDump
+export type Member = T.Member
+export type Class = T.Class
+export type ClassWithInheritance = T.ClassWithInheritance
+export type Item = T.Item
+
 --[=[
 	@prop Filter Filter
 	@within Dump
@@ -66,7 +77,8 @@ function Dump.new(dump: T.APIDump)
 
 	local self = setmetatable({}, Dump)
 
-	self._dump = dump
+	self.Dump = dump
+	self.VersionHash = nil :: string?
 
 	return self
 end
@@ -75,13 +87,13 @@ end
 	@function fetchRawDump
 	@within Dump
 	@param hashOrVersion string?
-	@return APIDump
+	@return (APIDump, versionHash)
 
 	Fetches the raw API dump for the current version of Roblox from the
 	Roblox API. If a hash or version is provided, it will attempt to
 	fetch the dump for that hash or version.
 ]=]
-function Dump.fetchRawDump(hashOrVersion: string?): T.APIDump
+function Dump.fetchRawDump(hashOrVersion: string?): (T.APIDump, string)
 	local isVersionString = hashOrVersion and hashOrVersion:match("%d+%.") ~= nil
 
 	if isVersionString then
@@ -101,8 +113,10 @@ end
 	returns a [Dump] instance instead of the raw API data.
 ]=]
 function Dump.fetchFromServer(hashOrVersion: string?)
-	local apiDump = Dump.fetchRawDump(hashOrVersion)
+	local apiDump, versionHash = Dump.fetchRawDump(hashOrVersion)
+
 	local dump = Dump.new(apiDump)
+	dump.VersionHash = versionHash
 
 	return dump
 end
@@ -119,13 +133,42 @@ end
 	an error.
 ]=]
 function Dump:findRawClassEntry(className: string): T.Class
-	for _, class: T.Class in self._dump.Classes do
+	for _, class: T.Class in self.Dump.Classes do
 		if class.Name == className then
 			return class
 		end
 	end
 
 	error(ERR_UNKNOWN_CLASSNAME:format(className))
+end
+
+--[=[
+	@method GetAncestry
+	@within Dump
+	@param class string | Class
+	@return { string }
+
+	Given a class, returns an array of class names the current class
+	inherits, where the first entry is top-level ancestor.
+]=]
+function Dump:GetAncestry(class: string | T.Class)
+	local currentClass: T.Class = class :: any
+
+	if typeof(class) == "string" then
+		currentClass = self:findRawClassEntry(currentClass)
+	end
+
+	local nextAncestorClassName = currentClass.Superclass
+	local ancestry = { currentClass.Name }
+
+	while nextAncestorClassName and nextAncestorClassName ~= "<<<ROOT>>>" do
+		local ancestor = self:findRawClassEntry(nextAncestorClassName)
+		nextAncestorClassName = ancestor.Superclass
+
+		table.insert(ancestry, 1, ancestor.Name)
+	end
+
+	return ancestry
 end
 
 --[=[
@@ -180,7 +223,7 @@ end
 	class names, and the values are the class entries.
 ]=]
 function Dump:filterClasses(filters: { string | T.GenericFilter<T.Class> | Instance })
-	local filteredResults: { T.Class } = self._dump.Classes
+	local filteredResults: { T.Class } = self.Dump.Classes
 
 	if #filters > 0 then
 		filters = Array.map(filters, function(filter)
@@ -261,7 +304,8 @@ end
 	scripts.
 
 	Consider adding the `Filter.Invert(Filter.ReadOnly)` filter to
-	filter out read-only properties.
+	filter out read-only properties. `Filter.Invert(Filter.HasTag("Hidden"))`
+	may also be useful in certain scenarios.
 ]=]
 function Dump:GetProperties(class: string | Instance, ...: (string | T.GenericFilter<T.Property>)?)
 	local classInstance = self:GetClass(class)

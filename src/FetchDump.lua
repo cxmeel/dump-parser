@@ -103,7 +103,7 @@ end
 	@function fetchDump
 	@within FetchDump
 	@param hashOrVersion string?
-	@return APIDump
+	@return (APIDump, versionHash)
 
 	Fetches the API dump for the current version of Roblox from the
 	Roblox API. If a hash or version is provided, it will attempt to
@@ -121,9 +121,10 @@ local function FetchDump(hashOrVersion: string?): T.APIDump
 		hashOrVersion = FetchVersionHashWithFallback(hashOrVersion)
 	end
 
-	local apiDump = HttpRequest(URL_VERSION_DUMP:format(hashOrVersion), true)
+	local versionHash = hashOrVersion :: string
+	local apiDump = HttpRequest(URL_VERSION_DUMP:format(versionHash), true)
 
-	return apiDump
+	return apiDump, versionHash
 end
 
 return {
